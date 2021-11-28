@@ -20,7 +20,7 @@ public class numberOfCases {
                 }
             }
         }
-        System.out.println(count);
+        System.out.println("모든 코스메뉴 먹기 " + count);
         count = 0;
 
 
@@ -30,12 +30,13 @@ public class numberOfCases {
         // 각 원소수
         int n = 5;
 
-        for (int i = 0; i < n; i++) {
-            r *= r;
-        }
+//        for (int i = 0; i < n; i++) {
+//            r = r * 2;
+//        }
 
-        System.out.println(count);
-        count = 0;
+        r = r << n;
+
+        System.out.println("멱집합 원소수 : " + r);
 
         /**
          * 합의 법칙
@@ -52,7 +53,7 @@ public class numberOfCases {
         for (int i = 0; i < smoothies.length; i++) {
             count++;
         }
-        System.out.println(count);
+        System.out.println("음료 마시기 : " + count);
         count = 0;
 
         // 두 주사위의 합이 2또는 3이되는 경우의수
@@ -77,7 +78,7 @@ public class numberOfCases {
             count++;
         }
 
-        System.out.println(count);
+        System.out.println("두주사위 합 : " + count);
         count = 0;
 
         /**
@@ -99,16 +100,93 @@ public class numberOfCases {
 
         for (int i = 0; i < arr1.length; i++) {
             for (int j = 0; j < arr2.length; j++) {
-                String s = String.valueOf(arr1[i]) + String.valueOf(arr2[j]);
+                String s = String.valueOf(arr1[i]) + (arr2[j]);
                 if (s.equals("is") || s.equals("as") || s.equals("in")) {
 
-                }else{
+                } else {
                     count++;
                 }
             }
         }
 
-        System.out.println(count);
+        System.out.println("변수명 짓기 : " + count);
         count = 0;
+
+        /**
+         * 포함 배제 원리
+         */
+        // 경품 추천권 번호는 총 4자리 (모두숫자)
+        // 경품 당첨 조건은 두가지중 하나
+        // 1. 시작 번호가 3 (3□□□)
+        // 2. 뒤로 부터 두자리 숫자가 77 (□□77)
+        int decimalCase1 = 10,
+                decimalCase2 = 10,
+                exclusion = 10;
+        int result;
+
+        for (int i = 0; i < 2; i++) {
+            decimalCase1 *= decimalCase1;
+        }
+        for (int i = 0; i < 1; i++) {
+            decimalCase2 *= decimalCase2;
+        }
+
+        result = decimalCase1 + decimalCase2 - exclusion;
+
+        System.out.println("경품 당첨 경우의 수 : " + result);
+
+        /**
+         * 트리 이용하기
+         */
+        //가위바위보 삼세판 모든 경우의 수
+        char[] target = {'A', 'P'};
+
+        for (int i = 0; i < target.length; i++) {
+            for (int j = 0; j < target.length; j++) {
+                if (target[i] == target[j]) {
+                    count++;
+                    continue;
+                }
+                for (int k = 0; k < target.length; k++) {
+                    count++;
+                }
+            }
+        }
+
+        System.out.println("가위바위보 삼세판 경우의 수 : " + count);
+        count = 0;
+
+        // 순열 공식과 다양한 예
+        // 6가지 펜중 2가지를 뽑는 경우의 수
+
+        // 재귀함수 방식
+        System.out.println("순열 재귀함수 방식 : " + permutation(6, 2));
+
+        // 순열 공식 방식 nPr 혹은 P(n,r)
+        // 6P2 6!/4!
+        int a = 1, b = 1;
+        n = 6;
+        r = 2;
+        for (int i = 1; i < n; i++) {
+            a = a * (i + 1);
+        }
+        for (int i = 1; i < n - r; i++) {
+            b = b * (i + 1);
+        }
+        result = a / b;
+        System.out.println("순열 공식 방식 : " + result);
+    }
+
+    public static int permutation(int n, int r) {
+
+        int count = 0;
+        if (r == 0) {
+            return 1;
+        } else {
+            for (int i = 0; i < n; i++) {
+                count++;
+            }
+            return count * permutation(n - 1, r - 1);
+        }
     }
 }
