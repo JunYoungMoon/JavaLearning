@@ -122,7 +122,7 @@ public class numberOfCases {
         int decimalCase1 = 10,
                 decimalCase2 = 10,
                 exclusion = 10;
-        int result;
+        long result;
 
         for (int i = 0; i < 2; i++) {
             decimalCase1 *= decimalCase1;
@@ -156,15 +156,18 @@ public class numberOfCases {
         System.out.println("가위바위보 삼세판 경우의 수 : " + count);
         count = 0;
 
-        // 순열 공식과 다양한 예
+        /**
+         * 순열 공식과 다양한 예
+         * 순열(permutation) : 순서를 따진다. (1,2,3)과 (2,1,3)은 다르다.
+         * 공식 : P(n,r) = n!/(n-r)! 혹은 nPr = n!/(n-r)!
+         */
         // 6가지 펜중 2가지를 뽑는 경우의 수
 
         // 재귀함수 방식
         System.out.println("순열 재귀함수 방식 : " + permutation(6, 2));
 
-        // 순열 공식 방식 nPr 혹은 P(n,r)
-        // 6P2 6!/4!
-        int a = 1, b = 1;
+        // 순열 공식 6P2 6!/4!
+        long a = 1, b = 1;
         n = 6;
         r = 2;
         for (int i = 1; i < n; i++) {
@@ -175,8 +178,81 @@ public class numberOfCases {
         }
         result = a / b;
         System.out.println("순열 공식 방식 : " + result);
+
+        /**
+         * 중복 순열
+         * 중복 : 하나를 뽑고 다시 넣는 방식 (예 주사위를 n번 던진다. 횟수가 무한대로 증가 가능)
+         * 공식 : (n^r)
+         */
+        // 8자리 패스워드의 경우의수
+        // 각자리는 알파벳 대소문자 52개
+        long password = 1;
+
+        for (int i = 0; i < 8; i++) {
+            password = password * 52;
+        }
+
+        System.out.println("패스워드 중복 순열 : " + password);
+
+        /**
+         * 조합 공식과 다양한 예
+         * 조합(combination) : 순서를 안따진다. (1,2,3)과 (2,1,3)은 같다.
+         * 공식 : C(n,r) = n!/(r!*(n-r)!) 혹은 nCr = n!/(r!*(n-r)!)
+         * 설명 : 전체 경우의수(순열)에서 선택한 갯수의 경우의 수만큼 나눠(순서를 따지지 않기 때문에 (1,2),(2,1)이라는 경우에는 하나로 보기위해)준다.
+         */
+        // 로또 당첨 모든 경우의수
+        // 조합 공식 45C6 45!/6!39!
+        a = 1;
+        b = 1;
+        n = 45;
+        r = 6;
+
+        //45!/39! 45x44x43x42x41x40
+        for (int i = n; i > n - r; i--) {
+            a = a * i;
+        }
+
+        //6! 6x5x3x2x1
+        for (int i = r; i > 0; i--) {
+            b = b * i;
+        }
+
+        result = a / b;
+
+        System.out.println("조합 공식 방식 : " + result);
+
+        /**
+         * 중복 조합
+         * 중복 : 하나를 뽑고 다시 넣는 방식
+         * 공식 : (n+r-1)Cr = (n+r-1)!/(r!*(n-r)!)
+         * 설명 : 무한대로 증가 할 수 있는 뽑는 횟수에 따라서 순서를 따지지 않으려면,
+         *       칸막이(r-1)를 둠으로써 데이터간의 이동을 막아버리면 된다.
+         */
+
+        //색이 다른 3종류 공에서 4개를 선택하는 경우의 수
+        a = 1;
+        b = 1;
+        n = 3;
+        r = 4;
+
+        n = n + r - 1;
+
+        //6!/2! 6x5x4x3
+        for (int i = n; i > n - r; i--) {
+            a = a * i;
+        }
+
+        //4! 4x3x2x1
+        for (int i = r; i > 0; i--) {
+            b = b * i;
+        }
+
+        result = a / b;
+
+        System.out.println("중복 조합 공식 방식 : " + result);
     }
 
+    // 순열 재귀함수
     public static int permutation(int n, int r) {
 
         int count = 0;
