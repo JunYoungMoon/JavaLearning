@@ -1,6 +1,6 @@
 package discreteMathematics;
 
-public class numberOfCases {
+public class NumberOfCases {
     public static void main(String[] args) {
 
         /**
@@ -250,6 +250,7 @@ public class numberOfCases {
         result = a / b;
 
         System.out.println("중복 조합 공식 방식 : " + result);
+
     }
 
     // 순열 재귀함수
