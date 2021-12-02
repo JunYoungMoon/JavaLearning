@@ -1,6 +1,8 @@
+package etc;
+
 import java.util.Scanner;
 
-public class snail {
+public class Snail {
 
     public static void main(String[] args) {
 

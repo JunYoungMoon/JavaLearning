@@ -2,12 +2,12 @@ package programers;
 
 import java.util.Arrays;
 
-public class lottos {
+public class Lottos {
     public static void main(String[] args) {
 
-        int lottos[] = {45, 4, 35, 20, 3, 9};
+        int[] lottos = {45, 4, 35, 20, 3, 9};
 
-        int win_nums[] = {20, 9, 3, 45, 4, 35};
+        int[] win_nums = {20, 9, 3, 45, 4, 35};
 
         int[] arr = solution(lottos, win_nums);
 
@@ -47,12 +47,12 @@ public class lottos {
         int sameNum = 0;
         int zeroCount = 0;
 
-        for (int i = 0; i < lottos.length; i++) {
-            if(lottos[i] == 0){
+        for (int lotto : lottos) {
+            if (lotto == 0) {
                 zeroCount++;
-            }else{
-                for (int j = 0; j < win_nums.length; j++) {
-                    if(lottos[i] == win_nums[j]){
+            } else {
+                for (int win_num : win_nums) {
+                    if (lotto == win_num) {
                         sameNum++;
                     }
                 }
@@ -60,14 +60,11 @@ public class lottos {
         }
 
         //등수가 나와야함
-
         int best = sameNum + zeroCount;
         int worst = sameNum;
 
-        int arr1[] = {6,6,5,4,3,2,1};
+        int[] arr1 = {6,6,5,4,3,2,1};
 
-        int[] answer = {arr1[best],arr1[worst]};
-
-        return answer;
+        return new int[]{arr1[best],arr1[worst]};
     }
 }
