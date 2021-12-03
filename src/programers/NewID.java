@@ -14,7 +14,7 @@ public class NewID {
             int a = new_id.charAt(i);
 
             if (a >= 65 && a <= 90) {
-                output.append((char) (a + 32));
+                output.append((char) (a | 32));
             } else {
                 output.append((char) (a));
             }
