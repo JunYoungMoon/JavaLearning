@@ -9,7 +9,7 @@ package discreteMathematics;
  * 이 과정을 여러 번 수행하는 알고리즘을 작성하고, 원주율의 값을 추정하시오.
  */
 public class Montecarlo {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         double count = 0.0;
 
         //30000번 실행
@@ -23,9 +23,9 @@ public class Montecarlo {
                 count++;
             }
 
-            //if (i % 1000 == 0) {
+            if (i % 1000 == 0) {
                 System.out.printf("%.4f\n", (count / i) * 4);
-            //}
+            }
         }
     }
 }
