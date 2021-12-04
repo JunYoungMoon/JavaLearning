@@ -24,6 +24,9 @@ public class Montecarlo {
             }
 
             if (i % 1000 == 0) {
+                // π/4 = 6/10 (확률)
+                // 4 * π/4 = (6/10) * 4
+                // π = 2.4
                 System.out.printf("%.4f\n", (count / i) * 4);
             }
         }
