@@ -3,7 +3,7 @@ package programers;
 public class NewID {
     public static void main(String[] args) {
 
-        solution("...!@BaT#*..y.abcdefghijklm");
+        solution("..A!@BaT#*..y.abcdefghijklm");
     }
 
     public static StringBuilder solution(String new_id) {
