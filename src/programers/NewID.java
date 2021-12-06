@@ -3,7 +3,7 @@ package programers;
 public class NewID {
     public static void main(String[] args) {
 
-        solution("..A!@BaT#*..y.abcdefghijklm");
+        solution("...!@BaT#*..y.abcdefghijklm");
     }
 
     public static StringBuilder solution(String new_id) {
@@ -17,6 +17,17 @@ public class NewID {
                 output.append((char) (a | 32));
             } else {
                 output.append((char) (a));
+            }
+        }
+        System.out.println(output);
+
+        int k = 0;
+        for (int i = 0; i < output.length(); i++) {
+            int a = output.charAt(i);
+
+            if (!((a >= 97 && a <= 122) || (a >= 48 && a <= 57) || (a == 45) || (a == 95) || (a == 46))) {
+                output.deleteCharAt(i + k);
+                k--;
             }
         }
 
