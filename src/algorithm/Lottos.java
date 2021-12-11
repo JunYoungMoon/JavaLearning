@@ -1,4 +1,4 @@
-package programers;
+package algorithm;
 
 import java.util.Arrays;
 

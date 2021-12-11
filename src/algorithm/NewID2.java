@@ -1,4 +1,4 @@
-package programers;
+package algorithm;
 
 public class NewID2 {
     public static void main(String[] args) {
