@@ -3,9 +3,9 @@ package algorithm;
 import java.util.Scanner;
 
 /**
- * 선형 검색 (보초법 sentinel method)
+ * 선형 검색 | 순차검색 (보초법 sentinel method)
  */
-public class Search {
+public class SeqSearchSen {
     public static void main(String[] args) {
         Scanner stdIn = new Scanner(System.in);
 
@@ -21,7 +21,7 @@ public class Search {
         System.out.print("검색할 값 : ");
         int key = stdIn.nextInt();
 
-        int result = seqSearch(x, num, key);
+        int result = seqSearchSen(x, num, key);
 
         if (result == -1) {
             System.out.println("찾는값 없음");
@@ -30,7 +30,7 @@ public class Search {
         }
     }
 
-    static int seqSearch(int[] a, int num, int key) {
+    static int seqSearchSen(int[] a, int num, int key) {
 
         int i = 0;
 
@@ -38,7 +38,6 @@ public class Search {
 
 //        기존코드
 //        while (true) {
-//
 //            if (i == num) {
 //                return -1;
 //            }
