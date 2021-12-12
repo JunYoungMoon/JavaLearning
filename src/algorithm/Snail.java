@@ -6,6 +6,7 @@ public class Snail {
 
     public static void main(String[] args) {
 
+        System.out.println("크기 입력 : ");
         Scanner scanner = new Scanner(System.in);
 
         int k = scanner.nextInt();
