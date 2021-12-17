@@ -1,9 +1,9 @@
 package algorithm;
 
-public class IntStack {
+public class Gstack<E> {
     private int max;
     private int ptr;
-    private int[] stk;
+    private E[] stk;
 
     public static class EmptyIntStackException extends RuntimeException {
         public EmptyIntStackException() {
@@ -15,17 +15,17 @@ public class IntStack {
         }
     }
 
-    public IntStack(int capacity) {
+    public Gstack(int capacity) {
         ptr = 0;
         max = capacity;
         try {
-            stk = new int[max];
+            stk = (E[]) new Object[max];
         } catch (OutOfMemoryError e) {
             max = 0;
         }
     }
 
-    public void push(int x) throws OverflowIntStackException {
+    public void push(E x) throws OverflowIntStackException {
         if (this.isFull()) {
             throw new OverflowIntStackException();
         }
@@ -39,7 +39,7 @@ public class IntStack {
         --ptr;
     }
 
-    public int peek() throws EmptyIntStackException {
+    public E peek() throws EmptyIntStackException {
         if (this.isEmpty()) {
             throw new EmptyIntStackException();
         }
@@ -66,7 +66,7 @@ public class IntStack {
         return ptr >= max;
     }
 
-    public int indexOf(int x) {
+    public int indexOf(E x) {
         for (int i = 0; ptr > 0; i++) {
             if (stk[i] == x) {
                 return i;
@@ -79,38 +79,56 @@ public class IntStack {
         if (this.isEmpty()) {
             System.out.println("스택이 비어있음");
         } else {
+            System.out.print("모든 데이터 ");
             for (int i = 0; i < ptr; i++) {
                 System.out.print(stk[i] + " ");
             }
+            System.out.println();
         }
     }
 
     public static void main(String[] args) {
-        IntStack s = new IntStack(8);
+        Gstack<Integer> gsInt = new Gstack<>(8);
 
-        System.out.println(s.isEmpty());
+        System.out.println("비어있는가 " + gsInt.isEmpty());
 
-        s.push(1);
-        s.push(12);
-        s.push(11);
-        s.push(141);
-        s.push(112);
-        s.push(141);
-        s.push(11123122);
+        gsInt.push(1);
+        gsInt.push(12);
+        gsInt.push(11);
+        gsInt.push(141);
+        gsInt.push(112);
+        gsInt.push(141);
+        gsInt.push(11123122);
 
-        System.out.println(s.isFull());
+        System.out.println("가득차 있는가 " + gsInt.isFull());
 
-        s.pop();
-        s.pop();
+        gsInt.pop();
+        gsInt.pop();
 
-        s.peek();
+        System.out.println("꼭대기 데이터 " + gsInt.peek());
+        System.out.println("몇번지 인덱스인가 " + gsInt.indexOf(12));
+        System.out.println("현재 데이터수 " + gsInt.size());
+        System.out.println("용량 " + gsInt.capacity());
+        gsInt.dump();
 
-        System.out.println(s.peek());
-        System.out.println(s.indexOf(12));
-        System.out.println(s.size());
-        System.out.println(s.capacity());
-        s.dump();
+        gsInt.clear();
 
-        s.clear();
+        Gstack<String> gsStr = new Gstack<>(8);
+
+        gsStr.push("aa");
+        gsStr.push("bb");
+        gsStr.push("cc");
+        gsStr.push("dd");
+
+        gsStr.pop();
+        gsStr.pop();
+
+        System.out.println("꼭대기 데이터 " + gsStr.peek());
+        System.out.println("몇번지 인덱스인가 " + gsStr.indexOf("bb"));
+        System.out.println("현재 데이터수 " + gsStr.size());
+        System.out.println("용량 " + gsStr.capacity());
+        gsStr.dump();
+
+        gsStr.clear();
     }
 }
