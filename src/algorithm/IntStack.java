@@ -1,7 +1,5 @@
 package algorithm;
 
-import java.util.Arrays;
-
 public class IntStack {
     private int max;
     private int ptr;
@@ -38,7 +36,7 @@ public class IntStack {
         if (this.isEmpty()) {
             throw new EmptyIntStackException();
         }
-        stk[--ptr] = 0;
+        --ptr;
     }
 
     public int peek() throws EmptyIntStackException {
@@ -49,7 +47,6 @@ public class IntStack {
     }
 
     public void clear() {
-        Arrays.fill(stk, 0);
         ptr = 0;
     }
 
@@ -70,7 +67,7 @@ public class IntStack {
     }
 
     public int indexOf(int x) {
-        for (int i = 0; stk[i] > 0; i++) {
+        for (int i = 0; ptr > 0; i++) {
             if (stk[i] == x) {
                 return i;
             }
