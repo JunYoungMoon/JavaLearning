@@ -1,5 +1,8 @@
-package algorithm;
+package dataStructure;
 
+/**
+ * 스택 (제네릭)
+ */
 public class Gstack<E> {
     private int max;
     private int ptr;
