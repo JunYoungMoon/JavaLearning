@@ -35,11 +35,11 @@ public class Gstack<E> {
         stk[ptr++] = x;
     }
 
-    public void pop() throws EmptyIntStackException {
+    public E pop() throws EmptyIntStackException {
         if (this.isEmpty()) {
             throw new EmptyIntStackException();
         }
-        --ptr;
+        return stk[--ptr];
     }
 
     public E peek() throws EmptyIntStackException {
@@ -88,50 +88,5 @@ public class Gstack<E> {
             }
             System.out.println();
         }
-    }
-
-    public static void main(String[] args) {
-        Gstack<Integer> gsInt = new Gstack<>(8);
-
-        System.out.println("비어있는가 " + gsInt.isEmpty());
-
-        gsInt.push(1);
-        gsInt.push(12);
-        gsInt.push(11);
-        gsInt.push(141);
-        gsInt.push(112);
-        gsInt.push(141);
-        gsInt.push(11123122);
-
-        System.out.println("가득차 있는가 " + gsInt.isFull());
-
-        gsInt.pop();
-        gsInt.pop();
-
-        System.out.println("꼭대기 데이터 " + gsInt.peek());
-        System.out.println("몇번지 인덱스인가 " + gsInt.indexOf(12));
-        System.out.println("현재 데이터수 " + gsInt.size());
-        System.out.println("용량 " + gsInt.capacity());
-        gsInt.dump();
-
-        gsInt.clear();
-
-        Gstack<String> gsStr = new Gstack<>(8);
-
-        gsStr.push("aa");
-        gsStr.push("bb");
-        gsStr.push("cc");
-        gsStr.push("dd");
-
-        gsStr.pop();
-        gsStr.pop();
-
-        System.out.println("꼭대기 데이터 " + gsStr.peek());
-        System.out.println("몇번지 인덱스인가 " + gsStr.indexOf("bb"));
-        System.out.println("현재 데이터수 " + gsStr.size());
-        System.out.println("용량 " + gsStr.capacity());
-        gsStr.dump();
-
-        gsStr.clear();
     }
 }
