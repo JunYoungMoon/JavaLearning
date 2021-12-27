@@ -20,7 +20,7 @@ public class Recur {
 //            if (!gs.isEmpty()) {
 //                n = gs.pop();
 //                System.out.println(n);
-//                n = n - 2;
+//                n = n - 1;
 //                continue;
 //            }
 //            break;
@@ -41,9 +41,10 @@ public class Recur {
             //4. recur(3) : recur(2) > 3출력 > recur(1) => 결과 1,2,3,1
             //5. recur(4) : recur(3) > 4출력 > recur(2) => 결과 1,2,3,1,4,1,2
 
+            //두개의 재귀함수로 이진트리를 만들수 있다.
             recur(n - 1);
             System.out.println(n);
-            recur(n - 2);
+            recur(n - 1);
         }
     }
 
