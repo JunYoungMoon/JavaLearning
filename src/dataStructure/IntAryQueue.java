@@ -31,14 +31,14 @@ public class IntAryQueue {
 
     public void enque(int x) throws OverflowIntAryQueueException {
         if (num >= max) {
-            throw new OverflowIntAryQueueException(); // 큐가 가득 참
+            throw new OverflowIntAryQueueException();
         }
         que[num++] = x;
     }
 
     public void deque() throws EmptyIntAryQueueException {
         if (num <= 0) {
-            throw new EmptyIntAryQueueException(); // 큐가 비어 있음
+            throw new EmptyIntAryQueueException();
         }
         //System.arraycopy(que, 1, que, 0, num - 1);
         for (int i = 0; i < num - 1; i++) {
