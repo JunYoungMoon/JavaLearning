@@ -1,5 +1,4 @@
 package dataStructure;
-
 import java.util.Scanner;
 
 public class Recur3 {
@@ -23,6 +22,8 @@ public class Recur3 {
                 }
                 continue;
             }
+
+
             do {
                 n = nstk[ptr];
                 sw = sstk[ptr--] + 1;
@@ -37,12 +38,12 @@ public class Recur3 {
     }
 
     public static void main(String[] args) {
-        Scanner stdIn = new Scanner(System.in);
+//        Scanner stdIn = new Scanner(System.in);
 
-        System.out.print("정수입력 : ");
+//        System.out.print("정수입력 : ");
 
-        int x = stdIn.nextInt();
+//        int x = stdIn.nextInt();
 
-        recur3(x);
+        recur3(5);
     }
 }
