@@ -4,14 +4,15 @@ import java.util.Scanner;
 public class Recur3 {
     static void recur3(int n) {
         int[] nstk = new int[100];  //실제 값이 저장되는 공간
-        int[] sstk = new int[100];  //nstk과 동일한 index를 가지면서 저장된 값이 1일때 출력
-        int ptr = -1;
-        int sw = 0;
+        int[] sstk = new int[100];  //nstk 배열의 값을 구분하기 위해 사용
+        int ptr = -1;   //포인터
+        int sw = 0;     //구분값
 
         while (true) {
             if (n > 0) {
                 ptr++;  //포인터 증가
-                nstk[ptr] = n;  //값저장
+                //nstk,sstk는 항상 동일 선상에 위치시킨다.
+                nstk[ptr] = n;
                 sstk[ptr] = sw;
 
                 if (sw == 0)    //좌
@@ -23,10 +24,9 @@ public class Recur3 {
                 continue;
             }
 
-
             do {
                 n = nstk[ptr];
-                sw = sstk[ptr--] + 1;   //ptr을--해주면서 상위 노드를 가르킨다.
+                sw = sstk[ptr--] + 1;   //대입이 끝나고 ptr-- 하면서 상위 노드를 가르킨다.
 
                 if (sw == 2) {
                     System.out.println(n);
