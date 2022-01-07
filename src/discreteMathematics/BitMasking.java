@@ -1,5 +1,7 @@
 package discreteMathematics;
 
+import java.util.regex.Pattern;
+
 public class BitMasking {
     public static void main(String[] args) {
         // 일반적인 짝수,홀수 구하는법
@@ -36,5 +38,22 @@ public class BitMasking {
         if (c >= 'a' && c <= 'z') {
             c = (char) (c ^ mask1);
         }
+        System.out.println(c);
+
+        // 다른 방식의 비트마스킹 대문자에서 소문자로 변환 하는법
+        char c1 = 'A';
+        if(isAlphabet(c1)){
+            c1 = (char) (c1 | mask1);
+        }
+        System.out.println(c1);
+
+        // 다른 방식의 비트마스킹 소문자에서 대문자로 변환 하는법
+        if(isAlphabet(c1)){
+            c1 = (char) (c1 &~ mask1);
+        }
+        System.out.println(c1);
+    }
+    static boolean isAlphabet(char alphabet){
+        return Pattern.matches("^[a-zA-Z]*$",Character.toString(alphabet));
     }
 }
