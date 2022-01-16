@@ -1,6 +1,6 @@
 package algorithm;
 
-public class NewID2 {
+public class NewIDReplaceAll {
     public static void main(String[] args) {
 
         solution("...!@BaT#*..y.abcdefghijklm..................");
