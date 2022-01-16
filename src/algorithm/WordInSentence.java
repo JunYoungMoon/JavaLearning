@@ -2,7 +2,7 @@ package algorithm;
 
 import java.util.Scanner;
 
-public class WordSentence {
+public class WordInSentence {
     public String solution(String str) {
         String answer = "";
         int m = Integer.MIN_VALUE, pos;
@@ -34,7 +34,7 @@ public class WordSentence {
     }
 
     public static void main(String[] args) {
-        WordSentence t = new WordSentence();
+        WordInSentence t = new WordInSentence();
         Scanner kb = new Scanner(System.in);
         String str = kb.nextLine();
 
