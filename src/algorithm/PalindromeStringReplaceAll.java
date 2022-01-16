@@ -2,7 +2,7 @@ package algorithm;
 
 import java.util.Scanner;
 
-public class PalindromeString2 {
+public class PalindromeStringReplaceAll {
     public static String solution(String str) {
         String answer = "YES";
         str = str.toUpperCase().replaceAll("[^A-Z]", "");
@@ -15,7 +15,7 @@ public class PalindromeString2 {
     }
 
     public static void main(String[] args) {
-        PalindromeString2 t = new PalindromeString2();
+        PalindromeStringReplaceAll t = new PalindromeStringReplaceAll();
         Scanner kb = new Scanner(System.in);
         System.out.println(t.solution(kb.nextLine()));
     }
