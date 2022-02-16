@@ -7,8 +7,14 @@ public class ConsecutiveNumberSubSequence {
         int answer = 0, sum = 0, lt = 0;
         for (int rt = 0; rt < n; rt++) {
             sum += arr[rt];
-            if(sum == m){
+            if (sum == m) {
                 answer++;
+            }
+            while (sum >= m) {
+                sum -= arr[lt++];
+                if (sum == m) {
+                    answer++;
+                }
             }
         }
         return answer;
