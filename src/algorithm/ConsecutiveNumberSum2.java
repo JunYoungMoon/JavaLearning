@@ -9,6 +9,9 @@ public class ConsecutiveNumberSum2 {
         while (n > 0) {
             cnt++;
             n = n - cnt;
+            if (n % cnt == 0) {
+                answer++;
+            }
         }
         return answer;
     }
