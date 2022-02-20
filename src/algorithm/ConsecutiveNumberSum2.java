@@ -13,6 +13,7 @@ public class ConsecutiveNumberSum2 {
                 answer++;
             }
         }
+
         return answer;
     }
 
