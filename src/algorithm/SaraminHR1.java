@@ -22,31 +22,29 @@ public class SaraminHR1 {
         writer.close();
         reader.close();
     }
-    public static String stringBeautify(String input)
-    {
+
+    public static String stringBeautify(String input) {
+        input += "a";
         char[] s = input.toCharArray();
-        char[] arr = {'a','e','i','o','u'};
-        int cnt = 0,flag =0;
-        String str ="";
+        char[] arr = {'a', 'e', 'i', 'o', 'u'};
+        String str = "";
+        int cnt = 0;
 
-
-        for (int i = 0; i < s.length; i++) {
-
-            for(int j = 0 ; j < arr.length; j++)
-            {
-                //직접적으로 비교하면 안될것 같다.
-//                if(s[i] == arr[j]){
-//                    cnt++;
-//                    flag = 0;
-//                    break;
-//                }else{
-//                    flag = 1;
-//                }
+        for (int i = 1; i < s.length - 1; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                if (s[i] == arr[j]) {
+                    cnt++;
+                }
             }
-//            if(cnt < 2 || flag == 1){
-//                str += s[i];
-//                flag = 0;
-//            }
+            for (int j = 0; j < arr.length; j++) {
+                if (s[i + 1] == arr[j]) {
+                    cnt++;
+                }
+            }
+            if (cnt != 2) {
+                str += s[i];
+            }
+            cnt = 0;
         }
 
         return str;
