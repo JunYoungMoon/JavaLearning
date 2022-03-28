@@ -17,12 +17,27 @@ class Person {
 
 class EmergencyRoom {
     public int solution(int n, int m, int[] arr) {
-        int answer = 1;
+        int answer = 0;
         Queue<Person> Q = new LinkedList<>();
         for (int i = 0; i < n; i++) {
-            Q.add(new Person(i, arr[i]));
+            Q.offer(new Person(i, arr[i]));
         }
-
+        while (!Q.isEmpty()) {
+            Person tmp = Q.poll();
+            for (Person x : Q) {
+                if (x.priority > tmp.priority) {
+                    Q.offer(tmp);
+                    tmp = null;
+                    break;
+                }
+            }
+            if (tmp != null) {
+                answer++;
+                if (tmp.id == m) {
+                    return answer;
+                }
+            }
+        }
         return answer;
     }
 
