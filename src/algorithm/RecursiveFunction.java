@@ -12,6 +12,6 @@ public class RecursiveFunction {
 
     public static void main(String[] args) {
         RecursiveFunction rf = new RecursiveFunction();
-
+        rf.DFS(3);
     }
 }
