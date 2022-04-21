@@ -1,17 +1,18 @@
 package algorithm;
 
 public class RecursiveFunction {
-    public void DFS(int n) {
-        if (n == 0) {
-            return;
+    public int DFS(int n) {
+        if (n == 1) {
+            return 1;
         } else {
-            DFS(n/2);
-            System.out.print(n%2 + " ");
+            return n*DFS(n-1);
         }
     }
 
     public static void main(String[] args) {
         RecursiveFunction rf = new RecursiveFunction();
-        rf.DFS(3);
+
+        System.out.print(rf.DFS(3));
+
     }
 }
