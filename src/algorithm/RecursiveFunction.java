@@ -4,15 +4,18 @@ public class RecursiveFunction {
     public int DFS(int n) {
         if (n == 1) {
             return 1;
+        } else if (n == 2) {
+            return 1;
         } else {
-            return n*DFS(n-1);
+            return DFS(n - 2) + DFS(n - 1);
         }
     }
 
     public static void main(String[] args) {
         RecursiveFunction rf = new RecursiveFunction();
-
-        System.out.print(rf.DFS(3));
-
+        int n = 7;
+        for (int i = 1; i < n; i++) {
+            System.out.print(rf.DFS(i) + " ");
+        }
     }
 }
