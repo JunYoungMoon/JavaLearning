@@ -11,6 +11,7 @@ public class FindCalf {
     Queue<Integer> Q = new LinkedList<>();
 
     public int BFS(int s, int e) {
+        ch = new int[10001];
         ch[s] = 1;
         Q.offer(s);
         int L = 0;
