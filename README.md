@@ -1,4 +1,4 @@
-# Java
+# JavaLearningHub
 
 자바를 활용하여 다양한 학습을 하고 있는 리포지토리입니다.
 
