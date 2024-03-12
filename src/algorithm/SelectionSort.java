@@ -2,12 +2,12 @@ package algorithm;
 
 import java.util.Scanner;
 
-class SortingSelection {
+class SelectionSort {
     public int[] solution(int n, int[] arr) {
         for (int i = 0; i < n - 1; i++) {
             int idx = i;
             for (int j = i + 1; j < n; j++) {
-                if (arr[j] < arr[idx]) {
+                if (arr[idx] > arr[j]) {
                     idx = j;
                 }
             }
@@ -19,7 +19,7 @@ class SortingSelection {
     }
 
     public static void main(String[] args) {
-        SortingSelection ss = new SortingSelection();
+        SelectionSort ss = new SelectionSort();
         Scanner kb = new Scanner(System.in);
         int n = kb.nextInt();
         int[] arr = new int[n];

@@ -3,32 +3,30 @@ package algorithm;
 import java.util.Scanner;
 
 public class BubbleSort {
-    public void bubbleSort(int[] dataArray) {
-        int temp;
-        for (int i = 0; i < dataArray.length - 1; i++) {
-            for (int j = 0; j < dataArray.length - i - 1; j++) {
-                if (dataArray[j] > dataArray[j + 1]) {
-                    temp = dataArray[j];
-                    dataArray[j] = dataArray[j + 1];
-                    dataArray[j + 1] = temp;
+    public int[] solution(int n, int[] arr) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
                 }
             }
         }
+        return arr;
     }
 
     public static void main(String[] args) {
-        BubbleSort sorter = new BubbleSort();
+        BubbleSort bs = new BubbleSort();
         Scanner kb = new Scanner(System.in);
-        String input = kb.nextLine();
-        String[] inputArray = input.split(" ");
-        int n = inputArray.length;
-        int[] dataArray = new int[n];
+        int n = kb.nextInt();
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            dataArray[i] = Integer.parseInt(inputArray[i]);
+            arr[i] = kb.nextInt();
         }
-        sorter.bubbleSort(dataArray);
-        for (int x : dataArray) {
-            System.out.println(x);
+        for (int x : bs.solution(n, arr)
+        ) {
+            System.out.println(x + " ");
         }
     }
 }
