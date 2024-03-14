@@ -20,6 +20,7 @@ class QuickSort {
     private int partition(int[] arr, int low, int high) {
         int pivot = arr[high];
         int i = (low - 1);
+        //배열 탐색 및 요소 교환
         for (int j = low; j < high; j++) {
             if (arr[j] < pivot) {
                 i++;
@@ -30,6 +31,7 @@ class QuickSort {
             }
         }
 
+        //pivot의 위치 변경
         int temp = arr[i + 1];
         arr[i + 1] = arr[high];
         arr[high] = temp;
