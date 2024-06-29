@@ -29,7 +29,7 @@ public class TypeToken {
         typeSafeMap.put(Integer.class, 1);
         typeSafeMap.put(List.class, Arrays.asList(1,2,3,4));
         //같은 키일때 Map을 덮어 써버린다 type erasure 때문에 List<String>.class도 불가능하다.
-        typeSafeMap.put(List<String>.class, Arrays.asList("a","b","c","d"));
+//        typeSafeMap.put(List<String>.class, Arrays.asList("a","b","c","d"));
 
         System.out.println(typeSafeMap.get(String.class));
         System.out.println(typeSafeMap.get(Integer.class));
