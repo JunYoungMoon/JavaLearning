@@ -6,17 +6,17 @@ import java.util.*;
 
 public class SuperTypeToken {
     static class TypeSafeMap {
-        Map<TypeReference<?>, Object> map = new HashMap<>();
+        Map<Type, Object> map = new HashMap<>();
 
         <T> void put(TypeReference<?> tr, T value) {
-            map.put(tr, value);
+            map.put(tr.type, value);
         }
 
         <T> T get(TypeReference<T> tr) {
             if (tr.type instanceof Class<?>) {
-                return ((Class<T>) tr.type).cast(map.get(tr)); // <String>
+                return ((Class<T>) tr.type).cast(map.get(tr.type)); // <String>
             } else {
-                return ((Class<T>)((ParameterizedType) tr.type).getRawType()).cast(map.get(tr)); // List<String>
+                return ((Class<T>) ((ParameterizedType) tr.type).getRawType()).cast(map.get(tr.type)); // List<String>
             }
         }
     }
@@ -29,19 +29,6 @@ public class SuperTypeToken {
             if (stype instanceof ParameterizedType) {
                 this.type = ((ParameterizedType) stype).getActualTypeArguments()[0];
             } else throw new RuntimeException();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass().getSuperclass() != o.getClass().getSuperclass()) return false;
-            TypeReference<?> that = (TypeReference<?>) o;
-            return Objects.equals(type, that.type);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(type);
         }
     }
 
@@ -75,8 +62,8 @@ public class SuperTypeToken {
         }, 1);
         typeSafeMap.put(new TypeReference<List<Integer>>() {
         }, Arrays.asList(1, 2, 3, 4));
-        typeSafeMap.put(new TypeReference<List<String>>() {
-        }, Arrays.asList("a", "b", "c", "d"));
+        typeSafeMap.put(new TypeReference<List<List<String>>>() {
+        }, Arrays.asList(Arrays.asList("a", "b", "c", "d"), Arrays.asList("a", "b", "c", "d"), Arrays.asList("a", "b", "c", "d"), "d"));
 
         System.out.println(typeSafeMap.get(new TypeReference<String>() {
         }));
@@ -84,8 +71,9 @@ public class SuperTypeToken {
         }));
         System.out.println(typeSafeMap.get(new TypeReference<List<Integer>>() {
         }));
-        System.out.println(typeSafeMap.get(new TypeReference<List<String>>() {
+        System.out.println(typeSafeMap.get(new TypeReference<List<List<String>>>() {
         }));
+
 
     }
 }
