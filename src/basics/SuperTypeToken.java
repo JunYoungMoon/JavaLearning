@@ -54,9 +54,9 @@ public class SuperTypeToken {
 //    }
 
     public static void main(String[] args) throws NoSuchFieldException {
-        TypeReference t = new TypeReference<List<String>>() {
-        };
-        System.out.println(t.type);
+//        TypeReference t = new TypeReference<List<String>>() {
+//        };
+//        System.out.println(t.type);
 
         // 1. 서브클래스를 만들면서 슈퍼 클래스의 타입을 지정해주면 런타임시에도 정보 접근이 가능하다.
 //        Sup s = new Sub();
