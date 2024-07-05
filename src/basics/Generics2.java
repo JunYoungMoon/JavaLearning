@@ -2,6 +2,9 @@ package basics;
 
 import java.util.*;
 
+/**
+ * 클래스,메서드 레벨 제네릭
+ */
 public class Generics2<T> { // <T> 클래스 레벨의 제네릭
 //    static class Hello<T> { // T -> type parameter
 //        T value;
@@ -10,7 +13,6 @@ public class Generics2<T> { // <T> 클래스 레벨의 제네릭
 //            return null;
 //        }
 //    }
-
     T value;
 
     public void setValue(T value) {
