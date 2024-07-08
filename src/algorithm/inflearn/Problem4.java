@@ -8,10 +8,12 @@ import java.util.Scanner;
  * 4. 단어 뒤집기
  */
 public class Problem4 {
-    static void solution(List<? extends CharSequence> list) {
-        for (CharSequence item : list) {
+    static <T extends CharSequence> void solution(List<T> list) {
+        for (T item : list) {
             if (item instanceof StringBuffer) {
                 ((StringBuffer) item).reverse();
+            } else if (item instanceof StringBuilder) {
+                ((StringBuilder) item).reverse();
             } else if (item instanceof String) {
                 char[] charArray = ((String) item).toCharArray();
                 int n = charArray.length;
@@ -21,8 +23,6 @@ public class Problem4 {
                     charArray[n - 1 - i] = temp;
                 }
                 System.out.println(new String(charArray));
-            } else if (item instanceof StringBuilder) {
-                ((StringBuilder) item).reverse();
             }
             System.out.println(item);
         }
