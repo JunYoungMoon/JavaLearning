@@ -37,6 +37,5 @@ public class Problem3 {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }
