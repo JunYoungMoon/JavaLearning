@@ -10,13 +10,11 @@ public class Problem10 {
         String s = "teachermode";
         char c = 'e';
 
-        char[] chars = s.toCharArray();
+        int[] answer = new int[s.length()];
+        int p = Integer.MAX_VALUE / 2; // 초기 거리를 큰 값으로 설정
 
-        int[] answer = new int[chars.length];
-        int p = 1000;
-
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == c) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == c) {
                 p = 0;
             } else {
                 p++;
@@ -25,8 +23,10 @@ public class Problem10 {
             answer[i] = p;
         }
 
-        for (int i = chars.length - 1; i >= 0; i--) {
-            if (chars[i] == c) {
+        p = Integer.MAX_VALUE / 2; // 다시 초기화
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == c) {
                 p = 0;
             } else {
                 p++;
