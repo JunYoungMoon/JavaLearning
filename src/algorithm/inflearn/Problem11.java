@@ -1,22 +1,32 @@
 package algorithm.inflearn;
 
-import java.util.Arrays;
-
 /**
  * 11. 문자열 압축
  */
 public class Problem11 {
     public static void main(String[] args) {
-        String s = "KKHSSSSSSSE";
+        String s = "KKHSSSSSSSEE";
 
-        int[] answer = new int[s.length()];
+        StringBuilder result = new StringBuilder();
 
-        int cnt = 1;
+        int count = 1;
+        char currentChar = s.charAt(0);
 
-        for (int i = 0; i < answer.length; i++) {
+        for (int i = 1; i < s.length(); i++) {
+            char nextChar = s.charAt(i);
 
+            if (currentChar == nextChar) {
+                count++;
+            } else {
+                result.append(currentChar).append(count);
+                currentChar = nextChar;
+                count = 1;
+            }
         }
 
-        System.out.println(Arrays.toString(answer));
+        // Append the last character and its count
+        result.append(currentChar).append(count);
+
+        System.out.println(result);
     }
 }
