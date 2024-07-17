@@ -1,4 +1,4 @@
-package algorithm.inflearn;
+package algorithm.inflearn._1;
 
 /**
  * 6. 중복 문자 제거

@@ -1,4 +1,4 @@
-package algorithm.inflearn;
+package algorithm.inflearn._1;
 
 /**
  * 8. 유효한 팰린드롬

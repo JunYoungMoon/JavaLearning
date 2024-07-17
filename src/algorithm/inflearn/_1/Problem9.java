@@ -1,4 +1,4 @@
-package algorithm.inflearn;
+package algorithm.inflearn._1;
 
 /**
  * 9. 숫자만 추출

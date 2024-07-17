@@ -1,4 +1,4 @@
-package algorithm.inflearn;
+package algorithm.inflearn._1;
 
 /**
  * 11. 문자열 압축

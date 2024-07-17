@@ -1,4 +1,4 @@
-package algorithm.inflearn;
+package algorithm.inflearn._1;
 
 /**
  * 7. 회문 문자열
