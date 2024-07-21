@@ -6,16 +6,16 @@ package algorithm.inflearn._2;
 public class Problem5 {
     public static void main(String[] args) {
         int c = 21;
-        int[] ints = new int[c];
+        int[] ints = new int[c + 1];
         int answer = 0;
 
         for (int i = 2; i < ints.length; i++) {
 
-            if(ints[i] ==0){
+            if (ints[i] == 0) {
                 answer++;
 
                 for (int j = i; j < ints.length; j++) {
-                    if(ints[j] % ints[i] == 0){
+                    if (j % i == 0) {
                         ints[j] = 1;
                     }
                 }
