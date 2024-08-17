@@ -3,7 +3,7 @@ package algorithm.doIt._6;
 import java.util.Arrays;
 
 /**
- * 6-7 병합정렬 (단순합치기)
+ * 6-7 병합정렬 (정렬을 마친 배열 병합)
  */
 
 public class Problem10 {
