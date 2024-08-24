@@ -3,6 +3,7 @@ package algorithm.doIt._8;
 /**
  * 8-3 Boyer-Moore법
  * KMP법 보다 우수한 알고리즘
+ * 패턴의 마지막 문자부터 앞쪽으로 검사를 진행하면서 일치하지 않는 문자가 있으면 미리 준비한 표에 따라 패턴을 옮길 크기를 정한다.
  */
 
 public class Problem2 {
@@ -13,17 +14,18 @@ public class Problem2 {
         int patLen = pat.length();
         int[] skip = new int[Character.MAX_VALUE + 1];
 
-        //문자의 크기만큼의 배열에 패턴 크기 값을 일일이 넣는다.
+        //문자의 크기만큼의 skip 배열에 패턴 크기값을 넣는다.
         for (pt = 0; pt <= Character.MAX_VALUE; pt++) {
             skip[pt] = patLen;
         }
-        //뛰어넘을값을 지정한다 만약 패턴에 중복값이 있다면 값은 더 줄어든다.
-        //ABCABD라면 A:5 > B:4 > C:3 에서 A와B가 다시 한번더 나오므로 A:2 > B:1 > D:0 으로 값이 저장된다.
-        for (pt = 0; pt < patLen; pt++) {
+        //skip 배열에 패턴이 알파벳이면 아스키코드, 한글이라면 유니코드의 번호에 인덱스 값을 넣는다.
+        //패턴 안에서도 중복문자열이 있다면 우측을 기준으로 인덱스를 잡는다.
+        for (pt = 0; pt < patLen - 1; pt++) {
             skip[pat.charAt(pt)] = patLen - pt - 1;
         }
 
         while (pt < txtLen) {
+            //마지막 문자부터 검색한다.
             pp = patLen - 1;
             while (txt.charAt(pt) == pat.charAt(pp)) {
                 if (pp == 0) {
@@ -32,8 +34,9 @@ public class Problem2 {
                 pp--;
                 pt--;
             }
-            //패턴이 일치하지 않을 때 텍스트에서 패턴을 얼마나 건너뛸지 결정하는 부분.
-            //
+            //문자가 인덱스인 skip 배열과 패턴에서 포인터가 이동한 값의 크기중 큰것으로 다음 건너뛰기의 값을 설정한다.
+            //이동후의 패턴이 텍스트와 일치하지 않을수도 있다는 사실을 알고도 이동한다.
+            //패턴에 해당하는 문자가 없을경우 skip에는 패턴이외의 문자가 모두 패턴길이만큼 저장되어 있으므로 단숨에 패턴 길이만큼 건너뛸수 있다.
             pt += (skip[txt.charAt(pt)] > patLen - pp) ? skip[txt.charAt(pt)] : patLen - pp;
         }
         return -1;
