@@ -24,6 +24,8 @@ public class Problem1 {
         void scanData(String guide, int sw) {
             System.out.println(guide + "할 데이터를 입력하세요.");
 
+            //& 연산자는 비트 AND 연산자로, 두 피연산자의 각각의 비트를 비교하여 둘 다 1인 경우에만 결과 비트를 1로 설정한다.
+            //그렇지 않으면 0이 된다.
             if ((sw & NO) == NO) {
                 System.out.print("번호 : ");
                 no = stdIn.nextInt();

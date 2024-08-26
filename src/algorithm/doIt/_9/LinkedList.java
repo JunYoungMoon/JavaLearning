@@ -17,7 +17,7 @@ public class LinkedList<E> {
     }
 
     private Node<E> head;
-    private Node<E> crnt;
+    private Node<E> crnt; // crnt : current 현재 노드
 
     public LinkedList() {
         head = crnt = null;
@@ -38,8 +38,8 @@ public class LinkedList<E> {
     }
 
     public void addFirst(E obj) {
-        Node<E> ptr = head;
-        head = crnt = new Node<E>(obj, ptr);
+        Node<E> ptr = head;  // 현재 헤드 노드를 ptr이 참조
+        head = crnt = new Node<E>(obj, ptr);  // 새로운 노드를 생성하고, 이 노드를 헤드로 설정합니다.
     }
 
     public void addLast(E obj) {
@@ -65,8 +65,8 @@ public class LinkedList<E> {
             if (head.next == null) {
                 removeFirst();
             } else {
-                Node<E> ptr = head;
-                Node<E> pre = head;
+                Node<E> ptr = head; //ptr : pointer
+                Node<E> pre = head; //pre : previous
 
                 while (ptr.next != null) {
                     pre = ptr;
@@ -91,6 +91,7 @@ public class LinkedList<E> {
                     }
                 }
                 ptr.next = p.next;
+                p.next = null; // 선택된 노드의 next 참조를 해지
                 crnt = ptr;
             }
         }
