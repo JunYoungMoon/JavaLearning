@@ -53,7 +53,7 @@ public class Problem1 {
         private static class NameOrderComparator implements Comparator<Data> {
             @Override
             public int compare(Data o1, Data o2) {
-                return 0;
+                return o1.name.compareTo(o2.name);
             }
         }
     }
@@ -106,7 +106,8 @@ public class Problem1 {
         Data ptr; // 검색용 데이터 참조
         Data temp = new Data(); // 입력 받기용 데이터
 
-        LinkedList<Data> list = new LinkedList<>(); // 리스트를 생성
+//        LinkedList<Data> list = new LinkedList<>(); // 리스트를 생성
+        AryLinkedList<Data> list = new AryLinkedList<>(100); // 배열 리스트를 생성
 
         do {
             switch (menu = SelectMenu()) {
