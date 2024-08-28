@@ -6,12 +6,13 @@ import java.util.Comparator;
  * 9-3 커서 연결 리스트
  * 노드 객체 배열 생성후 노드 포인터는 배열 인덱스를 바라보도록 설정
  * 프로그램 실행중에 데이터수가 크게 바뀌지 않고, 데이터수의 최대값을 미리 알수 있다면 사용
+ * 삭제후 배열의 빈공간을 활용하기 위해 deleted와 dnext를 활용
  */
 public class AryLinkedList<E> {
     class Node<E> {
         private E data;     //데이터
         private int next;   //리스트의 뒤쪽 포인터
-        private int dnext;  //free 리스트의 뒤쪽 포인터
+        private int dnext;  //삭제된 레코드를 관리하는 리스트의 뒤쪽 포인터
 
         void set(E data, int next) {
             this.data = data;
@@ -23,8 +24,8 @@ public class AryLinkedList<E> {
     private int size;
     private int max;
     private int head;
-    private int crnt;
-    private int deleted;    //free 리스트의 머리 노드
+    private int crnt;   //선택 노드의 배열 index
+    private int deleted;    //삭제된 레코드를 관리하는 리스트의 머리 노드
     private static final int NULL = -1;
 
     public AryLinkedList(int capacity) {
