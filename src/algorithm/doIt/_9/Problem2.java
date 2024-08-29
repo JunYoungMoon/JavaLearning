@@ -4,11 +4,10 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 /**
- * 9-2 포인터 연결 리스트
- * 9-3 커서 연결 리스트
+ * 9-4 원형 이중 연결 리스트
  */
 
-public class Problem1 {
+public class Problem2 {
     static Scanner stdIn = new Scanner(System.in);
 
     static class Data {
@@ -63,7 +62,8 @@ public class Problem1 {
         // JVM에 의해 하나씩 객체가 생성된다.
         ADD_FIRST("머리에 노드를 삽입 "), ADD_LAST("꼬리에 노드를 삽입 "), RMV_FIRST("머리 노드를 삭제"), RMV_LAST("꼬리 노드를 삭제"),
         RMV_CRNT("선택 노드를 삭제"), CLEAR("모든 노드를 삭제"), SEARCH_NO("번호로 검색"), SEARCH_NAME("이름으로 검색"),
-        NEXT("선택 노드를 하나 뒤쪽으로 이동"), PRINT_CRNT("선택 노드를 출력"), DUMP("모든 노드를 출력"), TERMINATE("종료");
+        NEXT("선택 노드를 하나 뒤쪽으로 이동"), ADD("선택 노드 바로 뒤에 노드 삽입"), PRINT_CRNT("선택 노드를 출력"), DUMP("모든 노드를 출력"),
+        DUMP_REVERSE("모든 노드를 거꾸로 출력"), TERMINATE("종료");
 
         private final String message;
 
@@ -107,8 +107,7 @@ public class Problem1 {
         Data ptr; // 검색용 데이터 참조
         Data temp = new Data(); // 입력 받기용 데이터
 
-//        LinkedList<Data> list = new LinkedList<>(); // 리스트를 생성
-        AryLinkedList<Data> list = new AryLinkedList<>(100); // 배열 리스트를 생성
+        DblLinkedList<Data> list = new DblLinkedList<>();
 
         do {
             switch (menu = SelectMenu()) {
@@ -162,12 +161,22 @@ public class Problem1 {
                     list.next();
                     break;
 
+                case ADD: // 선택 노드 바로 뒤에 노드 삽입
+                    data = new Data();
+                    data.scanData("선택 노드 바로 뒤에 노드 삽입 ", Data.NO | Data.NAME);
+                    list.add(data);
+                    break;
+
                 case PRINT_CRNT: // 선택 노드를 출력
                     list.printCurrentNode();
                     break;
 
                 case DUMP: // 모든 노드를 리스트 순서로 나타냄
                     list.dump();
+                    break;
+
+                case DUMP_REVERSE: // 모든 노드를 거꾸로 출력
+                    list.dumpReverse();
                     break;
             }
         } while (menu != Menu.TERMINATE);
