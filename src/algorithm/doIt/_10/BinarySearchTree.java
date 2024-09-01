@@ -61,12 +61,15 @@ class BinarySearchTree {
         } else if (key > root.key) {
             root.right = deleteRec(root.right, key);
         } else {
+            //일치하는 값을 찾음
             if (root.left == null) {
                 return root.right;
             } else if (root.right == null) {
                 return root.left;
             }
 
+            //오른쪽 서브트리에서 가장 작은 값을 찾아 삭제할 노드의 자리에 넣는다.
+            //이렇게 하면, 트리의 구조적 균형이 유지된다.
             root.key = minValue(root.right);
 
             root.right = deleteRec(root.right, root.key);

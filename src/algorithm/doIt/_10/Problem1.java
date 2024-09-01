@@ -9,6 +9,9 @@ class Problem1 {
         tree.insert(50);
         tree.insert(30);
         tree.insert(20);
+        tree.insert(35);
+        tree.insert(33);
+        tree.insert(32);
         tree.insert(40);
         tree.insert(70);
         tree.insert(60);
@@ -17,11 +20,14 @@ class Problem1 {
         System.out.println("이진 탐색 트리의 중위 순회 결과:");
         tree.inorder();
 
-        System.out.println("\n\n키 값 40을 검색:");
-        System.out.println(tree.search(40) ? "키 값 40이 존재합니다." : "키 값 40이 존재하지 않습니다.");
+        System.out.println("\n키 값 30을 삭제합니다.");
+        tree.deleteKey(30);
 
-        System.out.println("\n키 값 20을 삭제합니다.");
-        tree.deleteKey(20);
+//        System.out.println("\n\n키 값 40을 검색:");
+//        System.out.println(tree.search(40) ? "키 값 40이 존재합니다." : "키 값 40이 존재하지 않습니다.");
+//
+//        System.out.println("\n키 값 20을 삭제합니다.");
+//        tree.deleteKey(20);
         System.out.println("이진 탐색 트리의 중위 순회 결과:");
         tree.inorder();
     }
