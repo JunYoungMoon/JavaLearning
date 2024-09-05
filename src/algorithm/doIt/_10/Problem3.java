@@ -9,5 +9,11 @@ class Problem3 {
         tree.insert(10);
         tree.insert(5);
         tree.insert(50);
+        tree.insert(80);
+        tree.insert(40);
+        tree.insert(35);
+        tree.insert(20);
+
+        tree.inorder();
     }
 }
