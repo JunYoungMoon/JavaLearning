@@ -41,7 +41,7 @@ public class RedBlackTree {
     // 새 노드 삽입
     public void insert(int key) {
         Node node = new Node(key); //새로운 노드를 생성하면서 양쪽 리프노드 연결
-        root = insertRecursive(root, node); // 새로운 노드를 추가 그리고 변경된 root 업데이트
+        root = insertNodeRecursive(root, node); // 새로운 노드를 추가 그리고 변경된 root 업데이트
 
         //루트 노드일때는 2번 규칙 설정
         if (node.parent == null) {
@@ -54,17 +54,17 @@ public class RedBlackTree {
         insertFix(node); // 현재 노드를 파라미터로 전달
     }
 
-    private Node insertRecursive(Node current, Node node) {
+    private Node insertNodeRecursive(Node current, Node node) {
         // 재귀 베이스 케이스
         if (current == TNULL) {
             return node;
         }
 
         if (node.key < current.key) {
-            current.left = insertRecursive(current.left, node);
+            current.left = insertNodeRecursive(current.left, node);
             current.left.parent = current;
         } else {
-            current.right = insertRecursive(current.right, node);
+            current.right = insertNodeRecursive(current.right, node);
             current.right.parent = current;
         }
 
@@ -124,6 +124,41 @@ public class RedBlackTree {
             if (k == root) break;
         }
         root.color = BLACK; //2번 규칙 적용
+    }
+
+    public void delete(int key) {
+        Node z = findNodeRecursive(root, key);
+        if (z == TNULL) return; // Node not found
+
+        if (z.left == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우: 왼쪽 자식이 NULL이라면 오른쪽 자식만 가진다.
+            transplant(z, z.right);
+        } else if (z.right == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우: 오른쪽 자식이 NULL이라면 왼쪽 자식만 가진다.
+            transplant(z, z.left);
+        } else { //노드 z가 두 개의 자식을 가진 경우:
+            //..
+        }
+    }
+
+    //삭제를 하는 위치에 다른 노드로 대체하는 함수
+    private void transplant(Node u, Node v) {
+        //삭제하려는 노드가
+        if (u.parent == null) root = v; //root라면 v를 root설정
+        else if (u == u.parent.left) u.parent.left = v; //왼쪽 노드라면 v를 부모로 설정
+        else u.parent.right = v; //우측 노드라면 v를 부모로 설정
+
+        v.parent = u.parent;
+    }
+
+    private Node findNodeRecursive(Node current, int key) {
+        if (current == TNULL || current.key == key) {
+            return current;
+        }
+
+        if (key < current.key) {
+            return findNodeRecursive(current.left, key);
+        } else {
+            return findNodeRecursive(current.right, key);
+        }
     }
 
     //오른쪽 회전
