@@ -9,6 +9,18 @@ package algorithm.doIt._10;
  * 3.모든 leaf 노드는 BLACK
  * 4.RED가 연속적으로 존재할 수 없다.
  * 5.임의의 노드에서 자손 leaf 노드들까지 가는 경로들의 BLACK 수는 같다. (자기자신은 카운트에서 제외)
+ *
+ * delete Case 4가지
+ * case4: doubly black의 오른쪽 형제가 black이고 그 형제의 오른쪽 자녀가 red일때
+ * 해결방법 : 오른쪽 형제는 부모의 색으로, 오른쪽 형제의 오른쪽 자녀는 black으로 부모는 black으로 변경 후에 부모를 기준으로 왼쪽으로 회전
+ * case3: doubly black의 오른쪽 형제가 black이고 그 형제의 왼쪽 자녀가 red 일때
+ * 해결방법 : 오른쪽 형제와 오른쪽 형제의 왼쪽 자녀의 색을 바꾸고 오른쪽 형제를 기준으로 오른쪽 회전을 한다 이후엔 case4를 적용한다.
+ * case2: doubly black의 형제가 black이고 그 형제의 두자녀 모두 black일때
+ * 해결방법 : 본인과 오른쪽 형제의 black을 모아서 부모에게 전달한다 이때 오른쪽 형제는 black을 빼서 줬기 떄문에 red가 된다.
+ *          그리고 부모가 red-and-black이 됐다면 black으로 바꿔주면 되고 doubly black이 됐다면 부모가 루트일때는 balck으로 바꿔서 해결하고 아니라면 case1,2,3,4 중으로 해결
+ * case1 : doubly black의 형제가 red 일때
+ * 해결방법 : 오른쪽 형제와 부모의 색깔을 바꾸고 부모를 기준으로 왼쪽으로 회전하면 doubly black의 형제는 black이 된다 이후 case 2,3,4중에 하나로 해결
+ *
  */
 public class RedBlackTree {
     private static final boolean RED = true;
@@ -127,26 +139,44 @@ public class RedBlackTree {
     }
 
     public void delete(int key) {
+        //z : 삭제할 노드
         Node z = findNodeRecursive(root, key);
         if (z == TNULL) return; // Node not found
 
-        if (z.left == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우: 왼쪽 자식이 NULL이라면 오른쪽 자식만 가진다.
+        //y : 삭제 노드를 대체할 노드, x:
+        Node y, x;
+        // 삭제되는 색을 통해서 속성 위반 여부를 확인
+        boolean yOriginalColor = z.color;
+
+        if (z.left == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우
+            x = z.right;
+            // 오른쪽 자식을 체크
             transplant(z, z.right);
-        } else if (z.right == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우: 오른쪽 자식이 NULL이라면 왼쪽 자식만 가진다.
+        } else if (z.right == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우
+            x = z.right;
+            // 오른쪽 자식이 NULL이라면 왼쪽 자식만 가진다.
             transplant(z, z.left);
-        } else { //노드 z가 두 개의 자식을 가진 경우:
-            //..
+        } else { //노드 z가 두 개의 자식을 가진 경우
+            y = minimum(z.right);
+            yOriginalColor = y.color;
+            x = y.right;
+            //여기서부터..
         }
     }
 
-    //삭제를 하는 위치에 다른 노드로 대체하는 함수
-    private void transplant(Node u, Node v) {
-        //삭제하려는 노드가
-        if (u.parent == null) root = v; //root라면 v를 root설정
-        else if (u == u.parent.left) u.parent.left = v; //왼쪽 노드라면 v를 부모로 설정
-        else u.parent.right = v; //우측 노드라면 v를 부모로 설정
+    //삭제를 대체하기 위한 중위 후속자(inorder successor) 찾기
+    private Node minimum(Node node) {
+        while (node.left != TNULL) node = node.left;
+        return node;
+    }
 
-        v.parent = u.parent;
+    //삭제를 하는 위치에 다른 노드로 대체하는 함수
+    private void transplant(Node z, Node v) {
+        //삭제하려는 노드가
+        if (z.parent == null) root = v; //root라면 v를 root설정
+        else if (z == z.parent.left) z.parent.left = v; //왼쪽 노드라면 v를 왼쪽 노드로 설정
+        else z.parent.right = v; //오른쪽 노드라면 v를 오른쪽 노드로 설정
+        v.parent = z.parent; //v의 부모를 z의 부모로 설정
     }
 
     private Node findNodeRecursive(Node current, int key) {
