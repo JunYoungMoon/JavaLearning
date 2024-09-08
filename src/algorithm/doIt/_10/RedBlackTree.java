@@ -160,8 +160,29 @@ public class RedBlackTree {
             y = minimum(z.right);
             yOriginalColor = y.color;
             x = y.right;
-            //여기서부터..
+            if (y.parent == z) x.parent = y;
+            else {
+                //삭제 대체 노드 자식을 삭제 대체 노드 위치로 변경
+                transplant(y, y.right);
+                //삭제 대체 노드의 자식 변경
+                y.right = z.right;
+                y.right.parent = y;
+            }
+            //삭제 노드를 대체 노드로 변경
+            transplant(z, y);
+            y.left = z.left;
+            y.left.parent = y;
+            y.color = z.color;
         }
+        //삭제할 노드가 black일때만 속성5번을 위반한다.
+        if (yOriginalColor == BLACK) deleteFix(x);
+    }
+
+    private void deleteFix(Node x) {
+        while (x != root && x.color == BLACK) {
+
+        }
+        x.color = BLACK;
     }
 
     //삭제를 대체하기 위한 중위 후속자(inorder successor) 찾기
@@ -170,7 +191,7 @@ public class RedBlackTree {
         return node;
     }
 
-    //삭제를 하는 위치에 다른 노드로 대체하는 함수
+    //삭제를 하는 위치에 대체 노드를 연결
     private void transplant(Node z, Node v) {
         //삭제하려는 노드가
         if (z.parent == null) root = v; //root라면 v를 root설정
