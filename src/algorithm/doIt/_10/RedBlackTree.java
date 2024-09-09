@@ -9,7 +9,7 @@ package algorithm.doIt._10;
  * 3.모든 leaf 노드는 BLACK
  * 4.RED가 연속적으로 존재할 수 없다.
  * 5.임의의 노드에서 자손 leaf 노드들까지 가는 경로들의 BLACK 수는 같다. (자기자신은 카운트에서 제외)
- *
+ * <p>
  * delete Case 4가지
  * case4: doubly black의 오른쪽 형제가 black이고 그 형제의 오른쪽 자녀가 red일때
  * 해결방법 : 오른쪽 형제는 부모의 색으로, 오른쪽 형제의 오른쪽 자녀는 black으로 부모는 black으로 변경 후에 부모를 기준으로 왼쪽으로 회전
@@ -17,10 +17,9 @@ package algorithm.doIt._10;
  * 해결방법 : 오른쪽 형제와 오른쪽 형제의 왼쪽 자녀의 색을 바꾸고 오른쪽 형제를 기준으로 오른쪽 회전을 한다 이후엔 case4를 적용한다.
  * case2: doubly black의 형제가 black이고 그 형제의 두자녀 모두 black일때
  * 해결방법 : 본인과 오른쪽 형제의 black을 모아서 부모에게 전달한다 이때 오른쪽 형제는 black을 빼서 줬기 떄문에 red가 된다.
- *          그리고 부모가 red-and-black이 됐다면 black으로 바꿔주면 되고 doubly black이 됐다면 부모가 루트일때는 balck으로 바꿔서 해결하고 아니라면 case1,2,3,4 중으로 해결
+ * 그리고 부모가 red-and-black이 됐다면 black으로 바꿔주면 되고 doubly black이 됐다면 부모가 루트일때는 balck으로 바꿔서 해결하고 아니라면 case1,2,3,4 중으로 해결
  * case1 : doubly black의 형제가 red 일때
  * 해결방법 : 오른쪽 형제와 부모의 색깔을 바꾸고 부모를 기준으로 왼쪽으로 회전하면 doubly black의 형제는 black이 된다 이후 case 2,3,4중에 하나로 해결
- *
  */
 public class RedBlackTree {
     private static final boolean RED = true;
@@ -150,14 +149,16 @@ public class RedBlackTree {
 
         if (z.left == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우
             x = z.right;
-            // 오른쪽 자식을 체크
+            //삭제 오른쪽 노드를 삭제 노드 위치로 변경
             transplant(z, z.right);
         } else if (z.right == TNULL) { //노드 z의 자식이 없거나, 자식이 하나뿐인 경우
             x = z.right;
-            // 오른쪽 자식이 NULL이라면 왼쪽 자식만 가진다.
+            //삭제 왼쪽 노드를 삭제 노드 위치로 변경
             transplant(z, z.left);
         } else { //노드 z가 두 개의 자식을 가진 경우
+            //삭제를 노드를 대체하기 위한 중위 후속자(inorder successor) 찾기
             y = minimum(z.right);
+            //중위 후속자의 색깔로 체크
             yOriginalColor = y.color;
             x = y.right;
             if (y.parent == z) x.parent = y;
@@ -174,18 +175,69 @@ public class RedBlackTree {
             y.left.parent = y;
             y.color = z.color;
         }
-        //삭제할 노드가 black일때만 속성5번을 위반한다.
+        //삭제할 노드가 black 일때만 속성 5번을 위반한다.
         if (yOriginalColor == BLACK) deleteFix(x);
     }
 
     private void deleteFix(Node x) {
         while (x != root && x.color == BLACK) {
-
+            if (x == x.parent.left) {
+                Node u = x.parent.right;
+                if (u.color == RED) { //case1
+                    u.color = BLACK;
+                    x.parent.color = RED;
+                    leftRotate(x.parent);
+                    u = x.parent.right;
+                }
+                if (u.left.color == BLACK && u.right.color == BLACK) { //case2
+                    u.color = RED;
+                    x = x.parent;
+                } else {
+                    if (u.right.color == BLACK) { //case3
+                        u.left.color = BLACK;
+                        u.color = RED;
+                        rightRotate(u);
+                        u = x.parent.right;
+                    }
+                    //case4
+                    u.color = x.parent.color;
+                    x.parent.color = BLACK;
+                    u.right.color = BLACK;
+                    leftRotate(x.parent);
+                    x = root;
+                }
+            } else {
+                Node u = x.parent.left;
+                if (u.color == RED) { //case1
+                    u.color = BLACK;
+                    x.parent.color = RED;
+                    rightRotate(x.parent);
+                    u = x.parent.left;
+                }
+                if (u.right.color == BLACK && u.left.color == BLACK) { //case2
+                    u.color = RED;
+                    x = x.parent;
+                } else {
+                    if (u.left.color == BLACK) { //case3
+                        u.right.color = BLACK;
+                        u.color = RED;
+                        leftRotate(u);
+                        u = x.parent.left;
+                    }
+                    //case4
+                    u.color = x.parent.color;
+                    x.parent.color = BLACK;
+                    u.left.color = BLACK;
+                    rightRotate(x.parent);
+                    x = root;
+                }
+            }
         }
+        //x가 흑색이며, 추가적인 흑색을 가지고 있는 상태를 위 while에서 처리했고 x를 흑색으로 변경
         x.color = BLACK;
     }
 
-    //삭제를 대체하기 위한 중위 후속자(inorder successor) 찾기
+    //삭제를 노드를 대체하기 위한 중위 후속자(inorder successor) 찾기
     private Node minimum(Node node) {
         while (node.left != TNULL) node = node.left;
         return node;
