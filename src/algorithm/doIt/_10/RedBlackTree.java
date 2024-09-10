@@ -17,7 +17,7 @@ package algorithm.doIt._10;
  * 해결방법 : 오른쪽 형제와 오른쪽 형제의 왼쪽 자녀의 색을 바꾸고 오른쪽 형제를 기준으로 오른쪽 회전을 한다 이후엔 case4를 적용한다.
  * case2: doubly black의 형제가 black이고 그 형제의 두자녀 모두 black일때
  * 해결방법 : 본인과 오른쪽 형제의 black을 모아서 부모에게 전달한다 이때 오른쪽 형제는 black을 빼서 줬기 떄문에 red가 된다.
- * 그리고 부모가 red-and-black이 됐다면 black으로 바꿔주면 되고 doubly black이 됐다면 부모가 루트일때는 balck으로 바꿔서 해결하고 아니라면 case1,2,3,4 중으로 해결
+ * 그리고 부모가 red-and-black이 됐다면 black으로 바꿔주면 되고 doubly black이 됐다면 부모가 루트일때는 black으로 바꿔서 해결하고 아니라면 case1,2,3,4 중으로 해결
  * case1 : doubly black의 형제가 red 일때
  * 해결방법 : 오른쪽 형제와 부모의 색깔을 바꾸고 부모를 기준으로 왼쪽으로 회전하면 doubly black의 형제는 black이 된다 이후 case 2,3,4중에 하나로 해결
  */
@@ -192,8 +192,8 @@ public class RedBlackTree {
                 if (u.left.color == BLACK && u.right.color == BLACK) { //case2
                     u.color = RED;
                     x = x.parent;
-                } else {
-                    if (u.right.color == BLACK) { //case3
+                } else { //왼쪽, 오른쪽, 아니면 모두의 자녀가 red이다.
+                    if (u.right.color == BLACK) { //오른쪽 자녀가 black이니 왼쪽 자녀가 red이다. case3
                         u.left.color = BLACK;
                         u.color = RED;
                         rightRotate(u);
@@ -217,8 +217,8 @@ public class RedBlackTree {
                 if (u.right.color == BLACK && u.left.color == BLACK) { //case2
                     u.color = RED;
                     x = x.parent;
-                } else {
-                    if (u.left.color == BLACK) { //case3
+                } else { //왼쪽, 오른쪽, 아니면 모두의 자녀가 red이다.
+                    if (u.right.color == BLACK) { //오른쪽 자녀가 black이니 왼쪽 자녀가 red이다. case3
                         u.right.color = BLACK;
                         u.color = RED;
                         leftRotate(u);
