@@ -1,26 +1,43 @@
 package algorithm.doIt._10;
 
 /**
- * 10-3 RedBlack 트리
- * 개념 참고 주소 : https://www.youtube.com/watch?v=2MdsebfJOyM
- * 속성 5가지
- * 1.모든 모드는 RED 혹은 BLACK
- * 2.루트 노드는 BLACK
- * 3.모든 leaf 노드는 BLACK
- * 4.RED가 연속적으로 존재할 수 없다.
- * 5.임의의 노드에서 자손 leaf 노드들까지 가는 경로들의 BLACK 수는 같다. (자기자신은 카운트에서 제외)
- * <p>
- * delete Case 4가지
- * case4: doubly black의 오른쪽 형제가 black이고 그 형제의 오른쪽 자녀가 red일때
- * 해결방법 : 오른쪽 형제는 부모의 색으로, 오른쪽 형제의 오른쪽 자녀는 black으로 부모는 black으로 변경 후에 부모를 기준으로 왼쪽으로 회전
- * case3: doubly black의 오른쪽 형제가 black이고 그 형제의 왼쪽 자녀가 red 일때
- * 해결방법 : 오른쪽 형제와 오른쪽 형제의 왼쪽 자녀의 색을 바꾸고 오른쪽 형제를 기준으로 오른쪽 회전을 한다 이후엔 case4를 적용한다.
- * case2: doubly black의 형제가 black이고 그 형제의 두자녀 모두 black일때
- * 해결방법 : 본인과 오른쪽 형제의 black을 모아서 부모에게 전달한다 이때 오른쪽 형제는 black을 빼서 줬기 떄문에 red가 된다.
- * 그리고 부모가 red-and-black이 됐다면 black으로 바꿔주면 되고 doubly black이 됐다면 부모가 루트일때는 black으로 바꿔서 해결하고 아니라면 case1,2,3,4 중으로 해결
- * case1 : doubly black의 형제가 red 일때
- * 해결방법 : 오른쪽 형제와 부모의 색깔을 바꾸고 부모를 기준으로 왼쪽으로 회전하면 doubly black의 형제는 black이 된다 이후 case 2,3,4중에 하나로 해결
+ * 레드-블랙 트리
+ *
+ * 레드-블랙 트리란?
+ * 이진 탐색 트리(BST)의 한 종류로, 노드의 "색상"과 몇 가지 "규칙"을 통해 트리가 자동으로 균형을 유지하도록 설계된 자료 구조이다.
+ *
+ * 특징
+ * - 덜 엄격한 균형 조건으로 삽입, 삭제시 AVL 트리 보다 더 적은 회전을 한다.
+ * - 삽입, 삭제가 빈번한 현대 소프트웨어에서 AVL 트리보다 레드-블랙 트리가 좀더 자주 사용된다.
+ * - 평균 및 최악의 경우 모두 O(log n)의 시간 복잡도를 보장한다.
+ *
+ * 레드-블랙 트리의 규칙
+ * 1. 모든 노드는 RED 또는 BLACK이다.
+ * 2. 루트 노드는 항상 BLACK이다.
+ * 3. 모든 리프 노드(nil)는 BLACK이다.
+ * 4. RED 노드의 자식 노드는 항상 BLACK이다. (즉, 연속적으로 RED가 나올 수 없다.)
+ * 5. 임의의 노드에서 자손 리프 노드들까지 가는 경로의 BLACK 노드 개수는 모두 같다. (자기 자신은 카운트에서 제외한다.)
+ *
+ * 삭제 연산의 경우 (Deletion Cases)
+ * - 레드-블랙 트리에서 삭제 연산을 수행할 때 발생할 수 있는 네 가지 경우와 그에 따른 해결 방법을 설명
+ *
+ * Case 1: "doubly black" 노드의 형제가 RED인 경우
+ * 해결 방법: 형제와 부모의 색을 바꾸고, 부모를 기준으로 좌회전합니다. 그 후에 Case 2, 3, 4 중 하나로 해결한다.
+ *
+ * Case 2: "doubly black" 노드의 형제가 BLACK이고, 형제의 두 자녀가 모두 BLACK인 경우
+ * 해결 방법: 형제 노드를 RED로 바꾸고 "doubly black"을 부모에게 전달한다.
+ * 부모가 "red-and-black"이 되면 BLACK으로 바꾸고, "doubly black"이 되면 루트일 때는 BLACK으로 해결, 아니면 다시 Case 1, 2, 3, 4로 해결한다.
+ *
+ * Case 3: "doubly black" 노드의 형제가 BLACK이고, 형제의 왼쪽 자녀가 RED, 오른쪽 자녀는 BLACK인 경우
+ * 해결 방법: 형제와 형제의 왼쪽 자녀의 색을 바꾸고, 형제를 기준으로 우회전한다. 이후 Case 4로 해결한다.
+ *
+ * Case 4: "doubly black" 노드의 형제가 BLACK이고, 형제의 오른쪽 자녀가 RED인 경우
+ * 해결 방법: 형제의 색을 부모의 색으로 바꾸고, 형제의 오른쪽 자녀를 BLACK으로 바꾼 후 부모를 BLACK으로 변경한다. 그리고 부모를 기준으로 좌회전한다.
+ *
+ * 참고 자료
+ * - 레드-블랙 트리 개념 참고 영상: https://www.youtube.com/watch?v=2MdsebfJOyM
  */
+
 public class RedBlackTree {
     private static final boolean RED = true;
     private static final boolean BLACK = false;
@@ -84,7 +101,7 @@ public class RedBlackTree {
 
     //RedBlack 트리 특성 복구
     private void insertFix(Node k) {
-        //나는 당연히 RED이고 부모가 RED일때 계층간 중복 레드는 균형을 잡아야 한다.(4번 규칙 위배)
+        //나는 당연히 RED이고 부모가 RED일때 계층간 중복 레드는 균형을 잡아야 한다.(4번 규칙 위반)
         while (k.parent.color == RED) {
             //부모의 위치 구분
             if (k.parent == k.parent.parent.right) { //부모가 오른쪽
