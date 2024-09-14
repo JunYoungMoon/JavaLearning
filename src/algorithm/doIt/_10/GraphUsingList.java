@@ -1,7 +1,7 @@
 package algorithm.doIt._10;
 
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
 /**
  * 인접 리스트(Adjacency List)
@@ -36,11 +36,13 @@ public class GraphUsingList {
         adjList[dest].add(src); // 반대 방향도 추가
     }
 
+    // DFS 탐색
     public void dfs(int startVertex) {
         visited = new boolean[numVertices];
         dfsRecursive(startVertex);
     }
 
+    // DFS 탐색 재귀
     private void dfsRecursive(int vertex) {
         visited[vertex] = true;
         System.out.print(vertex + " ");
@@ -48,6 +50,28 @@ public class GraphUsingList {
         for (int adjVertex : adjList[vertex]) {
             if (!visited[adjVertex]) {
                 dfsRecursive(adjVertex);
+            }
+        }
+    }
+
+    // BFS 탐색
+    public void bfs(int startVertex) {
+        visited = new boolean[numVertices]; // 방문 여부 배열 초기화
+        Queue<Integer> queue = new LinkedList<>(); // BFS용 큐 생성
+
+        visited[startVertex] = true; // 시작 정점을 방문 처리
+        queue.offer(startVertex); // 큐에 시작 정점 추가
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll(); // 큐에서 정점을 꺼냄
+            System.out.print(vertex + " "); // 방문한 정점 출력
+
+            // 인접한 모든 정점을 확인
+            for (int adjVertex : adjList[vertex]) {
+                if (!visited[adjVertex]) { // 아직 방문하지 않은 정점이면
+                    visited[adjVertex] = true; // 방문 처리
+                    queue.offer(adjVertex); // 큐에 추가
+                }
             }
         }
     }

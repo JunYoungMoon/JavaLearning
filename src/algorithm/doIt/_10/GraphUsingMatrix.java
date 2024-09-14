@@ -1,7 +1,9 @@
 package algorithm.doIt._10;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * 인접 행렬(Adjacency Matrix)
@@ -32,11 +34,13 @@ public class GraphUsingMatrix {
         adjMatrix[j][i] = 1; // 반대 방향도 추가
     }
 
+    // DFS 탐색
     public void dfs(int startVertex) {
         visited = new boolean[numVertices];
         dfsRecursive(startVertex);
     }
 
+    // DFS 탐색 재귀
     private void dfsRecursive(int vertex) {
         visited[vertex] = true;
         System.out.print(vertex + " ");
@@ -44,6 +48,28 @@ public class GraphUsingMatrix {
         for (int i = 0; i < numVertices; i++) {
             if (adjMatrix[vertex][i] == 1 && !visited[i]) {
                 dfsRecursive(i);
+            }
+        }
+    }
+
+    // BFS 탐색
+    public void bfs(int startVertex) {
+        visited = new boolean[numVertices]; // 방문 여부 배열 초기화
+        Queue<Integer> queue = new LinkedList<>();
+
+        visited[startVertex] = true;
+        queue.offer(startVertex); // 시작 정점을 큐에 삽입
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll(); // 큐에서 정점을 꺼내서
+            System.out.print(vertex + " "); // 방문한 정점 출력
+
+            // 해당 정점과 인접한 모든 정점 탐색
+            for (int i = 0; i < numVertices; i++) {
+                if (adjMatrix[vertex][i] == 1 && !visited[i]) {
+                    visited[i] = true; // 방문 표시
+                    queue.offer(i); // 인접한 정점을 큐에 삽입
+                }
             }
         }
     }
